@@ -17,8 +17,28 @@
     </nav>
 
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-      <!-- Liste des produits -->
-      <div class="bg-white shadow overflow-hidden sm:rounded-md">
+      <!-- Onglets -->
+      <div class="mb-6">
+        <nav class="flex space-x-8">
+          <button
+              @click="activeTab = 'products'"
+              :class="activeTab === 'products' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500'"
+              class="py-2 px-1 border-b-2 font-medium text-sm"
+          >
+            Produits
+          </button>
+          <button
+              @click="activeTab = 'orders'"
+              :class="activeTab === 'orders' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500'"
+              class="py-2 px-1 border-b-2 font-medium text-sm"
+          >
+            Commandes
+          </button>
+        </nav>
+      </div>
+
+      <!-- Section Produits -->
+      <div v-if="activeTab === 'products'" class="bg-white shadow overflow-hidden sm:rounded-md">
         <div class="px-4 py-5 sm:px-6">
           <h3 class="text-lg font-medium text-gray-900">Produits</h3>
         </div>
@@ -48,9 +68,47 @@
           </li>
         </ul>
       </div>
+
+      <!-- Section Commandes -->
+      <div v-if="activeTab === 'orders'" class="bg-white shadow overflow-hidden sm:rounded-md">
+        <div class="px-4 py-5 sm:px-6">
+          <h3 class="text-lg font-medium text-gray-900">Commandes</h3>
+        </div>
+        <ul class="divide-y divide-gray-200">
+          <li v-for="order in orders" :key="order.id" class="px-4 py-4">
+            <div class="flex justify-between">
+              <div>
+                <h4 class="text-sm font-medium text-gray-900">{{ order.nom }}</h4>
+                <p class="text-sm text-gray-500">{{ order.telephone }}</p>
+                <p class="text-sm text-gray-500">{{ order.adresse }}</p>
+                <p class="text-sm font-medium text-green-600">{{ order.total?.toFixed(2) }}€</p>
+              </div>
+              <div class="text-right">
+                <p class="text-xs text-gray-500">{{ formatDate(order.createdAt) }}</p>
+                <span
+                    :class="order.status === 'confirmed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'"
+                    class="inline-flex px-2 py-1 text-xs font-semibold rounded-full"
+                >
+            {{ order.status }}
+          </span>
+                <button
+                    v-if="order.status === 'pending'"
+                    @click="confirmOrder(order.id)"
+                    class="px-3 py-1 ml-2 bg-green-600 text-white rounded-full cursor-pointer text-xs hover:bg-green-700"
+                >
+                  Confirmer
+                </button>
+              </div>
+            </div>
+            <div class="mt-2">
+              <p class="text-xs text-gray-600">Articles: {{ order.commande?.length || 0 }}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
 
-    <!-- Modal de modification -->
+    <!-- Modal de modification (existant) -->
     <div v-if="showEditModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div class="bg-white rounded-lg p-6 w-full max-w-md">
         <h3 class="text-lg font-medium mb-4">Modifier le produit</h3>
@@ -86,9 +144,12 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { authService } from '../firebase/authService.js'
 import { productService } from '../firebase/productService.js'
+import { orderService } from '../firebase/orderService.js'
 
 const router = useRouter()
 const products = ref([])
+const orders = ref([])
+const activeTab = ref('products')
 const loading = ref(false)
 const selectedImage = ref(null)
 const showEditModal = ref(false)
@@ -108,6 +169,12 @@ const newProduct = ref({
 const handleLogout = async () => {
   await authService.logout()
   router.push('/admin/login')
+}
+
+const formatDate = (date) => {
+  if (!date) return ''
+  const d = date.toDate ? date.toDate() : new Date(date)
+  return d.toLocaleDateString('fr-FR') + ' ' + d.toLocaleTimeString('fr-FR')
 }
 
 const handleImageChange = (event) => {
@@ -168,7 +235,20 @@ const loadProducts = async () => {
   products.value = await productService.getProducts()
 }
 
+const loadOrders = async () => {
+  orders.value = await orderService.getOrders()
+}
+const confirmOrder = async (orderId) => {
+  try {
+    await orderService.updateOrderStatus(orderId, 'confirmed')
+    loadOrders() // Recharger les commandes
+  } catch (error) {
+    console.error('Erreur:', error)
+  }
+}
+
 onMounted(() => {
   loadProducts()
+  loadOrders()
 })
 </script>
