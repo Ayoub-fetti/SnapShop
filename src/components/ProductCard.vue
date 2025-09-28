@@ -5,7 +5,7 @@
       <h3 class="font-semibold text-lg mb-2">{{ product.name }}</h3>
       <p class="text-gray-600 text-sm mb-3">{{ product.description }}</p>
       <div class="flex justify-between items-center">
-        <span class="text-xl font-bold text-blue-600">{{ product.price }}€</span>
+        <span class="text-xl font-bold text-blue-600">{{ product.price }} MAD</span>
         <button
           class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           @click="addToCart(product)"

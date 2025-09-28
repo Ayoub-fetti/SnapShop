@@ -15,7 +15,7 @@
       <div v-else class="space-y-4">
         <div v-for="item in cartItems" :key="item.id" class="border-b pb-4">
           <h3 class="font-semibold">{{ item.name }}</h3>
-          <p class="text-gray-600">{{ item.price }}€</p>
+          <p class="text-gray-600">{{ item.price }} MAD</p>
           <div class="flex items-center justify-between mt-2">
             <div class="flex items-center gap-2">
               <button @click="updateQuantity(item.id, item.quantity - 1)" class="bg-gray-200 px-2 py-1 rounded text-sm">-</button>
@@ -27,8 +27,10 @@
         </div>
 
         <div class="border-t pt-4">
-          <p class="text-lg font-bold mb-4">Total: {{ totalPrice }}€</p>
+          <p class="text-lg font-bold mb-4">Total: {{ totalPrice }} MAD</p>
           <button @click="clearCart" class="w-full bg-red-500 text-white py-2 rounded mb-2">Vider le panier</button>
+          <router-link to="/checkout" class="mr-4"><button class="w-full bg-red-500 text-white py-2 rounded mb-2">Valider la commande</button></router-link>
+
         </div>
       </div>
     </div>
