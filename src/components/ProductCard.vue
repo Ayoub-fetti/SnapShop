@@ -5,6 +5,11 @@
       <h3 class="font-semibold text-lg mb-2">{{ product.name }}</h3>
       <div class="flex justify-between items-center">
         <span class="text-xl font-bold text-blue-600">{{ product.price }} MAD</span>
+        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        @click="viewProduct(product.id)"
+        >
+          Voir Plus
+        </button>
         <button
           class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           @click="addToCart(product)"
@@ -18,6 +23,9 @@
 
 <script setup>
 import { inject } from 'vue'
+import { useRouter} from "vue-router";
+
+const router = useRouter()
 
 defineProps({
   product: {
@@ -28,4 +36,8 @@ defineProps({
 
 const cart = inject('cart')
 const addToCart = cart.addToCart
+
+const viewProduct = (productId) => {
+  router.push(`/product/${productId}`)
+}
 </script>

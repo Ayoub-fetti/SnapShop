@@ -1,5 +1,5 @@
 import { db } from './firebaseConfig.js'
-import { collection, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { collection,getDoc, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore'
 
 const COLLECTION_NAME = 'products'
 
@@ -15,5 +15,11 @@ export const productService = {
     },
     async deleteProduct (id) {
         return await deleteDoc(doc(db, COLLECTION_NAME, id))
+    },
+
+    async getProduct(id) {
+        const docRef = doc(db, COLLECTION_NAME, id)
+        const docSnap = await getDoc(docRef)
+        return docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } : null
     }
 }
