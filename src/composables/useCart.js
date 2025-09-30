@@ -35,7 +35,6 @@ export function useCart() {
     // Ajouter un produit au panier
     const addToCart = (product) => {
         const existingItem = cartItems.value.find(item => item.id === product.id)
-
         if (existingItem) {
             existingItem.quantity += 1
         } else {
@@ -44,6 +43,7 @@ export function useCart() {
                 quantity: 1
             })
         }
+        Swal.fire('Success', 'Product Added to card successfully!', 'success')
 
         // Sauvegarder immédiatement
         saveToStorage()

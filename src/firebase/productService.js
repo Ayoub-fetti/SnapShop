@@ -1,5 +1,6 @@
+// src/firebase/productService.js
 import { db } from './firebaseConfig.js'
-import { collection,getDoc, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { collection, getDoc, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore'
 
 const COLLECTION_NAME = 'products'
 
@@ -13,7 +14,8 @@ export const productService = {
         const productRef = doc(db, COLLECTION_NAME, id)
         return await updateDoc(productRef, productData)
     },
-    async deleteProduct (id) {
+
+    async deleteProduct(id) {
         return await deleteDoc(doc(db, COLLECTION_NAME, id))
     },
 
