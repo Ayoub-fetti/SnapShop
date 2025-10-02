@@ -1,3 +1,5 @@
+/* global Swal */
+
 import { ref, computed, watch } from 'vue'
 
 const CART_STORAGE_KEY = 'shopping-cart'
@@ -43,7 +45,7 @@ export function useCart() {
                 quantity: 1
             })
         }
-        Swal.fire('Success', 'Product Added to card successfully!', 'success')
+        alert('Product Added to card successfully!')
 
         // Sauvegarder immédiatement
         saveToStorage()

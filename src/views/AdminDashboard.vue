@@ -206,6 +206,7 @@
 </template>
 
 <script setup>
+/* global Swal */
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { authService } from '../firebase/authService.js'
@@ -244,18 +245,17 @@ const handleImageChange = (event) => {
 
 
 const deleteProduct = async (product) => {
-  const result = await Swal.fire({
-    title: 'Are you sure?',
-    text: 'Do you want to delete this product?',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, delete it!',
-    cancelButtonText: 'Cancel'
-  })
-  if (result.isConfirmed) {
-    await productService.deleteProduct(product.id, product.imageUrl)
-    loadProducts()
-    Swal.fire('Deleted!', 'Product has been deleted.', 'success')
+  const result = confirm('Are you sure you want to delete this product?')
+  
+  if (result) {
+    try {
+      await productService.deleteProduct(product.id, product.imageUrl)
+      loadProducts()
+      alert('Product has been deleted successfully!')
+    } catch (error) {
+      console.error('Error deleting product:', error)
+      alert('Failed to delete product. Please try again.')
+    }
   }
 }
 
@@ -277,10 +277,10 @@ const updateProduct = async () => {
       price: Number(editForm.value.price)
     })
     closeEditModal()
-    Swal.fire('Success', 'Product updated successfully!', 'success')
+    alert('Success', 'Product updated successfully!', 'success')
     loadProducts()
   } catch (error) {
-    Swal.fire('Error', 'An error occurred.', 'error')  }
+    alert('Error', 'An error occurred.', 'error')  }
 }
 
 const closeEditModal = () => {
@@ -299,7 +299,7 @@ const confirmOrder = async (orderId) => {
   try {
     await orderService.updateOrderStatus(orderId, 'confirmed')
     loadOrders()
-    Swal.fire('Success', 'Product Confirmed successfully!', 'success')
+    alert('Product Confirmed successfully!');
   } catch (error) {
     console.error('Erreur:', error)
   }
