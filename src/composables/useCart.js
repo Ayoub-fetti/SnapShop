@@ -1,3 +1,5 @@
+/* global Swal */
+
 import { ref, computed, watch } from 'vue'
 
 const CART_STORAGE_KEY = 'shopping-cart'
