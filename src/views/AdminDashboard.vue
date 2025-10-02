@@ -280,7 +280,7 @@ const updateProduct = async () => {
     alert('Success', 'Product updated successfully!', 'success')
     loadProducts()
   } catch (error) {
-    alert('Error', 'An error occurred.', 'error')  }
+    alert('Error', 'An error occurred!', 'error')  }
 }
 
 const closeEditModal = () => {
