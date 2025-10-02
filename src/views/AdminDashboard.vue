@@ -299,7 +299,7 @@ const confirmOrder = async (orderId) => {
   try {
     await orderService.updateOrderStatus(orderId, 'confirmed')
     loadOrders()
-    Swal.fire('Success', 'Product Confirmed successfully!', 'success')
+    Swal.fire('Success', 'Product Confirmed successfully', 'success')
   } catch (error) {
     console.error('Erreur:', error)
   }
