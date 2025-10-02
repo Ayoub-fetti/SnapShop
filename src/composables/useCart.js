@@ -45,7 +45,7 @@ export function useCart() {
                 quantity: 1
             })
         }
-        Swal.fire('Success', 'Product Added to card successfully!', 'success')
+        alert('Product Added to card successfully!')
 
         // Sauvegarder immédiatement
         saveToStorage()
