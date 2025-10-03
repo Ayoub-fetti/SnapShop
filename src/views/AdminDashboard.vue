@@ -1,173 +1,275 @@
 <template>
   <!-- Updated to Petit Pan color palette - bright blues, pinks, oranges instead of purple gradients -->
   <div class="min-h-screen bg-gradient-to-br from-blue-50 via-pink-50 to-orange-50">
+    <!-- Responsive navigation -->
     <nav class="bg-white shadow-md border-b-4 border-blue-300">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-20">
-          <div class="flex items-center gap-4">
-            <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-500 via-pink-500 to-orange-400 bg-clip-text text-transparent">
+      <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+        <div class="flex justify-between items-center h-16 sm:h-20">
+          <div class="flex items-center gap-2 sm:gap-4">
+            <h1 class="text-lg sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-blue-500 via-pink-500 to-orange-400 bg-clip-text text-transparent">
               Dashboard Admin
             </h1>
           </div>
           <button
               @click="handleLogout"
-              class="px-6 py-3 text-sm font-semibold text-gray-700 hover:text-red-500 transition-all duration-300 flex items-center gap-2 rounded-2xl hover:bg-red-50"
+              class="px-3 sm:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-gray-700 hover:text-red-500 transition-all duration-300 flex items-center gap-1 sm:gap-2 rounded-xl sm:rounded-2xl hover:bg-red-50"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
             </svg>
-            Déconnexion
+            <span class="hidden sm:inline">Déconnexion</span>
+            <span class="sm:hidden">Exit</span>
           </button>
         </div>
       </div>
     </nav>
 
-    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-      <!-- Updated tab buttons with Petit Pan colors -->
-      <div class="mb-8">
-        <nav class="flex gap-4 bg-white rounded-3xl p-2 shadow-lg border-2 border-blue-200">
+    <div class="max-w-7xl mx-auto py-4 sm:py-6 lg:py-8 px-3 sm:px-4 lg:px-8">
+      <!-- Responsive tab buttons -->
+      <div class="mb-6 sm:mb-8">
+        <nav class="flex gap-2 sm:gap-4 bg-white rounded-2xl sm:rounded-3xl p-1 sm:p-2 shadow-lg border-2 border-blue-200">
           <button
               @click="activeTab = 'products'"
               :class="activeTab === 'products'
               ? 'bg-gradient-to-r from-blue-400 to-pink-400 text-white shadow-lg scale-100'
               : 'text-gray-600 hover:bg-blue-50'"
-              class="flex-1 py-4 px-6 rounded-2xl font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2"
+              class="flex-1 py-2 sm:py-3 lg:py-4 px-3 sm:px-4 lg:px-6 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
             </svg>
-            Produits
+            <span class="hidden xs:inline">Produits</span>
+            <span class="xs:hidden">Prod.</span>
           </button>
           <button
               @click="activeTab = 'orders'"
               :class="activeTab === 'orders'
               ? 'bg-gradient-to-r from-pink-400 to-orange-400 text-white shadow-lg scale-100'
               : 'text-gray-600 hover:bg-pink-50'"
-              class="flex-1 py-4 px-6 rounded-2xl font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2"
+              class="flex-1 py-2 sm:py-3 lg:py-4 px-3 sm:px-4 lg:px-6 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
             </svg>
-            Commandes
+            <span class="hidden xs:inline">Commandes</span>
+            <span class="xs:hidden">Cmd.</span>
           </button>
         </nav>
       </div>
 
-      <!-- Updated product cards with brighter, more playful colors -->
-      <div v-if="activeTab === 'products'" class="space-y-4">
+      <!-- Responsive product cards -->
+      <div v-if="activeTab === 'products'" class="space-y-3 sm:space-y-4">
         <div v-for="product in products" :key="product.id"
-             class="bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border-2 border-blue-100 hover:border-pink-200">
-          <div class="p-6 flex items-center justify-between">
-            <div class="flex items-center gap-6">
+             class="bg-white rounded-2xl sm:rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border-2 border-blue-100 hover:border-pink-200">
+          <!-- Mobile layout (stacked) -->
+          <div class="block sm:hidden p-4">
+            <div class="flex items-start gap-3 mb-4">
               <img
                   v-if="product.image"
                   :src="product.image"
                   alt=""
-                  class="w-28 h-28 object-cover rounded-2xl shadow-md border-2 border-blue-100"
+                  class="w-20 h-20 object-cover rounded-xl shadow-md border-2 border-blue-100 flex-shrink-0"
               />
-              <div>
-                <h4 class="text-xl font-bold text-gray-900 mb-2">{{ product.name }}</h4>
-                <p class="text-sm text-gray-600 mb-3">{{ product.description }}</p>
-                <span class="inline-block px-5 py-2 bg-gradient-to-r from-blue-100 to-pink-100 text-blue-700 rounded-full text-sm font-bold shadow-sm">
+              <div class="flex-1 min-w-0">
+                <h4 class="text-lg font-bold text-gray-900 mb-1 line-clamp-2">{{ product.name }}</h4>
+                <p class="text-sm text-gray-600 mb-2 line-clamp-2">{{ product.description }}</p>
+                <span class="inline-block px-3 py-1 bg-gradient-to-r from-blue-100 to-pink-100 text-blue-700 rounded-full text-sm font-bold shadow-sm">
                   {{ product.price }} MAD
                 </span>
               </div>
             </div>
-            <div class="flex gap-3">
+            <div class="flex gap-2">
               <button
                   @click="editProduct(product)"
-                  class="px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-white rounded-2xl text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 flex items-center gap-2"
+                  class="flex-1 px-3 py-2 bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-white rounded-xl text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-1"
               >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                 </svg>
-                Modifier
+                <span class="text-xs">Modifier</span>
               </button>
               <button
                   @click="deleteProduct(product)"
-                  class="px-6 py-3 bg-gradient-to-r from-red-400 to-pink-400 hover:from-red-500 hover:to-pink-500 text-white rounded-2xl text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 flex items-center gap-2"
+                  class="flex-1 px-3 py-2 bg-gradient-to-r from-red-400 to-pink-400 hover:from-red-500 hover:to-pink-500 text-white rounded-xl text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-1"
               >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                 </svg>
-                Supprimer
+                <span class="text-xs">Supprimer</span>
               </button>
+            </div>
+          </div>
+
+          <!-- Desktop layout (horizontal) -->
+          <div class="hidden sm:block p-4 lg:p-6">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-4 lg:gap-6 flex-1 min-w-0">
+                <img
+                    v-if="product.image"
+                    :src="product.image"
+                    alt=""
+                    class="w-20 h-20 lg:w-28 lg:h-28 object-cover rounded-xl lg:rounded-2xl shadow-md border-2 border-blue-100 flex-shrink-0"
+                />
+                <div class="flex-1 min-w-0">
+                  <h4 class="text-lg lg:text-xl font-bold text-gray-900 mb-1 lg:mb-2 truncate">{{ product.name }}</h4>
+                  <p class="text-sm text-gray-600 mb-2 lg:mb-3 line-clamp-2">{{ product.description }}</p>
+                  <span class="inline-block px-3 lg:px-5 py-1 lg:py-2 bg-gradient-to-r from-blue-100 to-pink-100 text-blue-700 rounded-full text-sm font-bold shadow-sm">
+                    {{ product.price }} MAD
+                  </span>
+                </div>
+              </div>
+              <div class="flex gap-2 lg:gap-3 flex-shrink-0">
+                <button
+                    @click="editProduct(product)"
+                    class="px-4 lg:px-6 py-2 lg:py-3 bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-white rounded-xl lg:rounded-2xl text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 flex items-center gap-1 lg:gap-2"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                  </svg>
+                  <span class="hidden md:inline">Modifier</span>
+                </button>
+                <button
+                    @click="deleteProduct(product)"
+                    class="px-4 lg:px-6 py-2 lg:py-3 bg-gradient-to-r from-red-400 to-pink-400 hover:from-red-500 hover:to-pink-500 text-white rounded-xl lg:rounded-2xl text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 flex items-center gap-1 lg:gap-2"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                  </svg>
+                  <span class="hidden md:inline">Supprimer</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Updated order cards with Petit Pan color scheme -->
-      <div v-if="activeTab === 'orders'" class="space-y-4">
+      <!-- Responsive order cards -->
+      <div v-if="activeTab === 'orders'" class="space-y-3 sm:space-y-4">
         <div v-for="order in orders" :key="order.id"
-             class="bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 p-6 border-2 border-pink-100 hover:border-orange-200">
-          <div class="flex justify-between items-start mb-4">
-            <div class="flex-1">
-              <div class="flex items-center gap-3 mb-3">
-                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-blue-100 to-pink-100 flex items-center justify-center border-2 border-blue-200">
-                  <svg class="w-7 h-7 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <h4 class="text-xl font-bold text-gray-900">{{ order.nom }}</h4>
-                  <p class="text-sm text-gray-600">{{ order.telephone }}</p>
-                </div>
-              </div>
-              <div class="flex items-start gap-2 mb-2">
-                <svg class="w-5 h-5 text-pink-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+             class="bg-white rounded-2xl sm:rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 p-4 sm:p-6 border-2 border-pink-100 hover:border-orange-200">
+          <!-- Mobile layout -->
+          <div class="block lg:hidden">
+            <div class="flex items-start gap-3 mb-4">
+              <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-blue-100 to-pink-100 flex items-center justify-center border-2 border-blue-200 flex-shrink-0">
+                <svg class="w-6 h-6 sm:w-7 sm:h-7 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                 </svg>
-                <p class="text-sm text-gray-700">{{ order.adresse }}</p>
               </div>
-              <div class="flex items-center gap-4 mt-4">
-                <span class="text-3xl font-bold bg-gradient-to-r from-blue-500 via-pink-500 to-orange-400 bg-clip-text text-transparent">
-                  {{ order.total?.toFixed(2) }} MAD
-                </span>
-                <span class="px-4 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-bold">
-                  {{ order.commande?.length || 0 }} articles
-                </span>
+              <div class="flex-1 min-w-0">
+                <h4 class="text-lg sm:text-xl font-bold text-gray-900 truncate">{{ order.nom }}</h4>
+                <p class="text-sm text-gray-600 mb-1">{{ order.telephone }}</p>
+                <p class="text-xs text-gray-500">{{ formatDate(order.createdAt) }}</p>
               </div>
-            </div>
-            <div class="text-right">
-              <p class="text-xs text-gray-500 mb-3">{{ formatDate(order.createdAt) }}</p>
               <span
                   :class="order.status === 'confirmed'
                   ? 'bg-green-100 text-green-700 border-green-300'
                   : 'bg-yellow-100 text-yellow-700 border-yellow-300'"
-                  class="inline-flex items-center px-5 py-2 text-sm font-bold rounded-full border-2"
+                  class="inline-flex items-center px-3 py-1 text-xs font-bold rounded-full border-2 flex-shrink-0"
               >
                 {{ order.status }}
               </span>
-              <button
-                  v-if="order.status === 'pending'"
-                  @click="confirmOrder(order.id)"
-                  class="mt-3 px-6 py-3 bg-gradient-to-r from-green-400 to-blue-400 hover:from-green-500 hover:to-blue-500 text-white rounded-2xl text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 flex items-center gap-2 ml-auto"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </div>
+            
+            <div class="mb-4">
+              <div class="flex items-start gap-2 mb-3">
+                <svg class="w-4 h-4 text-pink-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                 </svg>
-                Confirmer
-              </button>
+                <p class="text-sm text-gray-700 line-clamp-2">{{ order.adresse }}</p>
+              </div>
+              
+              <div class="flex items-center justify-between">
+                <span class="text-2xl font-bold bg-gradient-to-r from-blue-500 via-pink-500 to-orange-400 bg-clip-text text-transparent">
+                  {{ order.total?.toFixed(2) }} MAD
+                </span>
+                <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">
+                  {{ order.commande?.length || 0 }} articles
+                </span>
+              </div>
+            </div>
+
+            <button
+                v-if="order.status === 'pending'"
+                @click="confirmOrder(order.id)"
+                class="w-full px-4 py-3 bg-gradient-to-r from-green-400 to-blue-400 hover:from-green-500 hover:to-blue-500 text-white rounded-xl text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Confirmer la commande
+            </button>
+          </div>
+
+          <!-- Desktop layout -->
+          <div class="hidden lg:block">
+            <div class="flex justify-between items-start mb-4">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="w-14 h-14 rounded-full bg-gradient-to-br from-blue-100 to-pink-100 flex items-center justify-center border-2 border-blue-200">
+                    <svg class="w-7 h-7 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="text-xl font-bold text-gray-900">{{ order.nom }}</h4>
+                    <p class="text-sm text-gray-600">{{ order.telephone }}</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-2 mb-2">
+                  <svg class="w-5 h-5 text-pink-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  </svg>
+                  <p class="text-sm text-gray-700">{{ order.adresse }}</p>
+                </div>
+                <div class="flex items-center gap-4 mt-4">
+                  <span class="text-3xl font-bold bg-gradient-to-r from-blue-500 via-pink-500 to-orange-400 bg-clip-text text-transparent">
+                    {{ order.total?.toFixed(2) }} MAD
+                  </span>
+                  <span class="px-4 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-bold">
+                    {{ order.commande?.length || 0 }} articles
+                  </span>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="text-xs text-gray-500 mb-3">{{ formatDate(order.createdAt) }}</p>
+                <span
+                    :class="order.status === 'confirmed'
+                    ? 'bg-green-100 text-green-700 border-green-300'
+                    : 'bg-yellow-100 text-yellow-700 border-yellow-300'"
+                    class="inline-flex items-center px-5 py-2 text-sm font-bold rounded-full border-2"
+                >
+                  {{ order.status }}
+                </span>
+                <button
+                    v-if="order.status === 'pending'"
+                    @click="confirmOrder(order.id)"
+                    class="mt-3 px-6 py-3 bg-gradient-to-r from-green-400 to-blue-400 hover:from-green-500 hover:to-blue-500 text-white rounded-2xl text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 flex items-center gap-2 ml-auto"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Confirmer
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Updated modal with Petit Pan styling -->
-    <div v-if="showEditModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div class="bg-white rounded-3xl p-8 w-full max-w-md shadow-2xl transform transition-all border-4 border-blue-200">
-        <h3 class="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-500 via-pink-500 to-orange-400 bg-clip-text text-transparent">
+    <!-- Responsive modal -->
+    <div v-if="showEditModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-4">
+      <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 w-full max-w-sm sm:max-w-md shadow-2xl transform transition-all border-2 sm:border-4 border-blue-200 max-h-[90vh] overflow-y-auto">
+        <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-500 via-pink-500 to-orange-400 bg-clip-text text-transparent">
           Modifier le produit
         </h3>
-        <form @submit.prevent="updateProduct" class="space-y-5">
+        <form @submit.prevent="updateProduct" class="space-y-4 sm:space-y-5">
           <div>
             <label class="block text-sm font-bold text-gray-700 mb-2">Nom du produit</label>
             <input
                 v-model="editForm.name"
                 type="text"
-                class="w-full border-2 border-blue-200 rounded-2xl px-4 py-3 focus:border-pink-400 focus:ring-4 focus:ring-pink-200 transition-all duration-200 outline-none"
+                class="w-full border-2 border-blue-200 rounded-xl sm:rounded-2xl px-3 sm:px-4 py-2 sm:py-3 focus:border-pink-400 focus:ring-4 focus:ring-pink-200 transition-all duration-200 outline-none text-sm sm:text-base"
                 required
             >
           </div>
@@ -175,7 +277,7 @@
             <label class="block text-sm font-bold text-gray-700 mb-2">Description</label>
             <textarea
                 v-model="editForm.description"
-                class="w-full border-2 border-blue-200 rounded-2xl px-4 py-3 focus:border-pink-400 focus:ring-4 focus:ring-pink-200 transition-all duration-200 outline-none resize-none"
+                class="w-full border-2 border-blue-200 rounded-xl sm:rounded-2xl px-3 sm:px-4 py-2 sm:py-3 focus:border-pink-400 focus:ring-4 focus:ring-pink-200 transition-all duration-200 outline-none resize-none text-sm sm:text-base"
                 rows="3"
             ></textarea>
           </div>
@@ -184,21 +286,21 @@
             <input
                 v-model="editForm.price"
                 type="number"
-                class="w-full border-2 border-blue-200 rounded-2xl px-4 py-3 focus:border-pink-400 focus:ring-4 focus:ring-pink-200 transition-all duration-200 outline-none"
+                class="w-full border-2 border-blue-200 rounded-xl sm:rounded-2xl px-3 sm:px-4 py-2 sm:py-3 focus:border-pink-400 focus:ring-4 focus:ring-pink-200 transition-all duration-200 outline-none text-sm sm:text-base"
                 required
             >
           </div>
-          <div class="flex gap-3 pt-4">
+          <div class="flex flex-col sm:flex-row gap-3 pt-4">
             <button
                 type="button"
                 @click="closeEditModal"
-                class="flex-1 px-6 py-3 text-gray-700 border-2 border-gray-300 rounded-2xl font-bold hover:bg-gray-50 transition-all duration-300"
+                class="w-full sm:flex-1 px-4 sm:px-6 py-2 sm:py-3 text-gray-700 border-2 border-gray-300 rounded-xl sm:rounded-2xl font-bold hover:bg-gray-50 transition-all duration-300 text-sm sm:text-base"
             >
               Annuler
             </button>
             <button
                 type="submit"
-                class="flex-1 px-6 py-3 bg-gradient-to-r from-blue-400 via-pink-400 to-orange-400 hover:from-blue-500 hover:via-pink-500 hover:to-orange-500 text-white rounded-2xl font-bold transition-all duration-300 shadow-lg hover:shadow-xl"
+                class="w-full sm:flex-1 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-blue-400 via-pink-400 to-orange-400 hover:from-blue-500 hover:via-pink-500 hover:to-orange-500 text-white rounded-xl sm:rounded-2xl font-bold transition-all duration-300 shadow-lg hover:shadow-xl text-sm sm:text-base"
             >
               Sauvegarder
             </button>
@@ -208,10 +310,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-</script>
-
 
 <script setup>
 /* global Swal */
@@ -230,11 +328,10 @@ const selectedImage = ref(null)
 const showEditModal = ref(false)
 const editForm = ref({
   id: '',
-  title: '',
+  name: '',
   description: '',
   price: ''
 })
-
 
 const handleLogout = async () => {
   await authService.logout()
@@ -250,7 +347,6 @@ const formatDate = (date) => {
 const handleImageChange = (event) => {
   selectedImage.value = event.target.files[0]
 }
-
 
 const deleteProduct = async (product) => {
   const result = await Swal.fire({
@@ -270,6 +366,7 @@ const deleteProduct = async (product) => {
     cancelButtonText: 'إلغاء / Annuler',
     reverseButtons: true
   })
+  
   if (result.isConfirmed) {
     try {
       await productService.deleteProduct(product.id, product.imageUrl)
@@ -323,18 +420,20 @@ const updateProduct = async () => {
       price: Number(editForm.value.price)
     })
     closeEditModal()
-      await Swal.fire({
-            title: 'تم التحديث! / Mis à jour!',
-            html: `
-              <div style="text-align: center;">
-                <p style="font-size: 16px; margin-bottom: 10px;">تم تحديث المنتج بنجاح!</p>
-                <p style="font-size: 16px;">Produit mis à jour avec succès!</p>
-              </div>
-            `,
-            icon: 'success',
-            timer: 2000,
-            showConfirmButton: false
-          })
+    
+    await Swal.fire({
+      title: 'تم التحديث! / Mis à jour!',
+      html: `
+        <div style="text-align: center;">
+          <p style="font-size: 16px; margin-bottom: 10px;">تم تحديث المنتج بنجاح!</p>
+          <p style="font-size: 16px;">Produit mis à jour avec succès!</p>
+        </div>
+      `,
+      icon: 'success',
+      timer: 2000,
+      showConfirmButton: false
+    })
+    
     loadProducts()
   } catch (error) {
     await Swal.fire({
@@ -357,12 +456,29 @@ const closeEditModal = () => {
 }
 
 const loadProducts = async () => {
-  products.value = await productService.getProducts()
+  try {
+    loading.value = true
+    products.value = await productService.getProducts()
+  } catch (error) {
+    console.error('Erreur lors du chargement des produits:', error)
+    products.value = []
+  } finally {
+    loading.value = false
+  }
 }
 
 const loadOrders = async () => {
-  orders.value = await orderService.getOrders()
+  try {
+    loading.value = true
+    orders.value = await orderService.getOrders()
+  } catch (error) {
+    console.error('Erreur lors du chargement des commandes:', error)
+    orders.value = []
+  } finally {
+    loading.value = false
+  }
 }
+
 const confirmOrder = async (orderId) => {
   try {
     await orderService.updateOrderStatus(orderId, 'confirmed')
@@ -402,3 +518,19 @@ onMounted(() => {
   loadOrders()
 })
 </script>
+
+<style scoped>
+/* Ajout de classes utilitaires pour le responsive */
+@media (min-width: 480px) {
+  .xs\:inline { display: inline; }
+  .xs\:hidden { display: none; }
+}
+
+/* Limitation des lignes de texte */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+</style>
