@@ -3,14 +3,17 @@ import  {getAuth} from 'firebase/auth'
 import {getFirestore} from 'firebase/firestore'
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBNn9y7o6-xWBkOkMsIh2tk25FOe0EAddw",
-    authDomain: "snapshop-f7a08.firebaseapp.com",
-    projectId: "snapshop-f7a08",
-    storageBucket: "snapshop-f7a08.appspot.com",
-    messagingSenderId: "223195241117",
-    appId: "1:223195241117:web:f0431d1f33fa3571319274",
-    measurementId: "G-R55Q0M1FVG"
+
+  apiKey: "AIzaSyBI7uxcpoNDpZIfPw7l_eeQlduBpVynWpE",
+  authDomain: "snapshop-72316.firebaseapp.com",
+  projectId: "snapshop-72316",
+  storageBucket: "snapshop-72316.firebasestorage.app",
+  messagingSenderId: "407737069683",
+  appId: "1:407737069683:web:a6cca9a801c4052572ba06",
+  measurementId: "G-GE94HDF4PB"
 };
+
+
 const app = initializeApp(firebaseConfig)
 export const  auth = getAuth(app)
 export  const db = getFirestore(app)

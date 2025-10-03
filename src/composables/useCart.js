@@ -45,7 +45,21 @@ export function useCart() {
                 quantity: 1
             })
         }
-        alert('Product Added to card successfully!')
+        
+        Swal.fire({
+            title: 'نجح! / Succès!',
+            html: `
+                <div style="text-align: center;">
+                    <p style="font-size: 16px; margin-bottom: 10px;">تمت إضافة المنتج إلى السلة بنجاح!</p>
+                    <p style="font-size: 16px;">Produit ajouté au panier avec succès!</p>
+                </div>
+            `,
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false,
+            toast: true,
+            position: 'top-end'
+        })
 
         // Sauvegarder immédiatement
         saveToStorage()

@@ -245,16 +245,54 @@ const handleImageChange = (event) => {
 
 
 const deleteProduct = async (product) => {
-  const result = confirm('Are you sure you want to delete this product?')
-  
-  if (result) {
+  const result = await Swal.fire({
+    title: 'تأكيد الحذف / Confirmer la suppression',
+    html: `
+      <div style="text-align: center;">
+        <p style="font-size: 16px; margin-bottom: 10px;">هل أنت متأكد من حذف هذا المنتج؟</p>
+        <p style="font-size: 16px;">Êtes-vous sûr de vouloir supprimer ce produit ?</p>
+        <p style="font-weight: bold; color: #e74c3c; margin-top: 10px;">${product.name}</p>
+      </div>
+    `,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#e74c3c',
+    cancelButtonColor: '#6c757d',
+    confirmButtonText: 'نعم، احذف / Oui, supprimer',
+    cancelButtonText: 'إلغاء / Annuler',
+    reverseButtons: true
+  })
+  if (result.isConfirmed) {
     try {
       await productService.deleteProduct(product.id, product.imageUrl)
       loadProducts()
-      alert('Product has been deleted successfully!')
+      
+      await Swal.fire({
+        title: 'تم الحذف! / Supprimé!',
+        html: `
+          <div style="text-align: center;">
+            <p style="font-size: 16px; margin-bottom: 10px;">تم حذف المنتج بنجاح!</p>
+            <p style="font-size: 16px;">Le produit a été supprimé avec succès!</p>
+          </div>
+        `,
+        icon: 'success',
+        timer: 2000,
+        showConfirmButton: false
+      })
     } catch (error) {
       console.error('Error deleting product:', error)
-      alert('Failed to delete product. Please try again.')
+      
+      await Swal.fire({
+        title: 'خطأ! / Erreur!',
+        html: `
+          <div style="text-align: center;">
+            <p style="font-size: 16px; margin-bottom: 10px;">فشل في حذف المنتج. يرجى المحاولة مرة أخرى.</p>
+            <p style="font-size: 16px;">Échec de la suppression du produit. Veuillez réessayer.</p>
+          </div>
+        `,
+        icon: 'error',
+        confirmButtonText: 'موافق / OK'
+      })
     }
   }
 }
@@ -277,10 +315,32 @@ const updateProduct = async () => {
       price: Number(editForm.value.price)
     })
     closeEditModal()
-    alert('Success', 'Product updated successfully!', 'success')
+      await Swal.fire({
+            title: 'تم التحديث! / Mis à jour!',
+            html: `
+              <div style="text-align: center;">
+                <p style="font-size: 16px; margin-bottom: 10px;">تم تحديث المنتج بنجاح!</p>
+                <p style="font-size: 16px;">Produit mis à jour avec succès!</p>
+              </div>
+            `,
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false
+          })
     loadProducts()
   } catch (error) {
-    alert('Error', 'An error occurred!', 'error')  }
+    await Swal.fire({
+      title: 'خطأ! / Erreur!',
+      html: `
+        <div style="text-align: center;">
+          <p style="font-size: 16px; margin-bottom: 10px;">حدث خطأ أثناء التحديث!</p>
+          <p style="font-size: 16px;">Une erreur s'est produite lors de la mise à jour!</p>
+        </div>
+      `,
+      icon: 'error',
+      confirmButtonText: 'موافق / OK'
+    })
+  }
 }
 
 const closeEditModal = () => {
@@ -299,9 +359,33 @@ const confirmOrder = async (orderId) => {
   try {
     await orderService.updateOrderStatus(orderId, 'confirmed')
     loadOrders()
-    alert('Product Confirmed successfully!');
+    
+    await Swal.fire({
+      title: 'تم التأكيد! / Confirmé!',
+      html: `
+        <div style="text-align: center;">
+          <p style="font-size: 16px; margin-bottom: 10px;">تم تأكيد الطلب بنجاح!</p>
+          <p style="font-size: 16px;">Commande confirmée avec succès!</p>
+        </div>
+      `,
+      icon: 'success',
+      timer: 2000,
+      showConfirmButton: false
+    })
   } catch (error) {
     console.error('Erreur:', error)
+    
+    await Swal.fire({
+      title: 'خطأ! / Erreur!',
+      html: `
+        <div style="text-align: center;">
+          <p style="font-size: 16px; margin-bottom: 10px;">فشل في تأكيد الطلب!</p>
+          <p style="font-size: 16px;">Échec de la confirmation de la commande!</p>
+        </div>
+      `,
+      icon: 'error',
+      confirmButtonText: 'موافق / OK'
+    })
   }
 }
 

@@ -102,6 +102,7 @@
   </div>
 </template>
 
+
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -132,16 +133,42 @@ const submitOrder = async () => {
     })
 
     clearCart()
-    alert('Commande validée !')
+    
+    await Swal.fire({
+      title: 'تم تأكيد الطلب! / Commande validée!',
+      html: `
+        <div style="text-align: center;">
+          <p style="font-size: 18px; margin-bottom: 15px; color: #27ae60;">✅ تم تأكيد طلبكم بنجاح!</p>
+          <p style="font-size: 18px; margin-bottom: 15px; color: #27ae60;">✅ Votre commande a été validée avec succès!</p>
+          <div style="background-color: #f8f9fa; padding: 15px; border-radius: 10px; margin: 15px 0;">
+            <p style="font-size: 14px; color: #6c757d;">سنتواصل معكم قريباً لتأكيد التفاصيل</p>
+            <p style="font-size: 14px; color: #6c757d;">Nous vous contacterons bientôt pour confirmer les détails</p>
+          </div>
+        </div>
+      `,
+      icon: 'success',
+      confirmButtonText: 'عودة للصفحة الرئيسية / Retour à l\'accueil',
+      confirmButtonColor: '#27ae60'
+    })
+    
     router.push('/')
   } catch (error) {
-    alert('Erreur lors de la commande')
+    await Swal.fire({
+      title: 'خطأ في الطلب! / Erreur de commande!',
+      html: `
+        <div style="text-align: center;">
+          <p style="font-size: 16px; margin-bottom: 10px;">حدث خطأ أثناء معالجة طلبكم</p>
+          <p style="font-size: 16px;">Une erreur s'est produite lors du traitement de votre commande</p>
+          <p style="font-size: 14px; color: #6c757d; margin-top: 10px;">يرجى المحاولة مرة أخرى / Veuillez réessayer</p>
+        </div>
+      `,
+      icon: 'error',
+      confirmButtonText: 'موافق / OK',
+      confirmButtonColor: '#e74c3c'
+    })
   } finally {
     loading.value = false
   }
 }
 </script>
 
-<style scoped>
-/* Tailwind CSS is used for styling, so no additional styles are needed here */
-</style>

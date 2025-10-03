@@ -74,7 +74,7 @@
 
                 <!-- Enhanced remove button -->
                 <button
-                    @click="removeFromCart(item.id)"
+                    @click="handleRemoveItem(item.id, item.name)"
                     class="text-red-500 hover:text-red-700 font-semibold text-sm transition-colors duration-200 flex items-center gap-1"
                 >
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -108,7 +108,7 @@
         </button>
 
         <button
-            @click="clearCart"
+            @click="handleClearCart"
             class="w-full bg-white hover:bg-red-50 text-red-600 border-2 border-red-200 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,6 +122,7 @@
 </template>
 
 <script setup>
+/* global Swal */
 import { useRouter } from 'vue-router'
 import { useCart } from '../composables/useCart.js'
 
@@ -134,5 +135,81 @@ const emit = defineEmits(['close'])
 const goToCheckout = () => {
   emit('close')
   router.push('/checkout')
+}
+
+const handleRemoveItem = async (itemId, itemName) => {
+  const result = await Swal.fire({
+    title: 'إزالة المنتج / Supprimer le produit',
+    html: `
+      <div style="text-align: center;">
+        <p style="font-size: 16px; margin-bottom: 10px;">هل تريد إزالة هذا المنتج من السلة؟</p>
+        <p style="font-size: 16px;">Voulez-vous supprimer ce produit du panier ?</p>
+        <p style="font-weight: bold; color: #2563eb; margin-top: 10px;">${itemName}</p>
+      </div>
+    `,
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#e74c3c',
+    cancelButtonColor: '#6c757d',
+    confirmButtonText: 'نعم، إزالة / Oui, supprimer',
+    cancelButtonText: 'إلغاء / Annuler',
+    reverseButtons: true
+  })
+
+  if (result.isConfirmed) {
+    removeFromCart(itemId)
+    
+    Swal.fire({
+      title: 'تمت الإزالة! / Supprimé!',
+      html: `
+        <div style="text-align: center;">
+          <p style="font-size: 16px; margin-bottom: 10px;">تم حذف المنتج من السلة</p>
+          <p style="font-size: 16px;">Produit supprimé du panier</p>
+        </div>
+      `,
+      icon: 'success',
+      timer: 1500,
+      showConfirmButton: false,
+      toast: true,
+      position: 'top-end'
+    })
+  }
+}
+
+const handleClearCart = async () => {
+  const result = await Swal.fire({
+    title: 'إفراغ السلة / Vider le panier',
+    html: `
+      <div style="text-align: center;">
+        <p style="font-size: 16px; margin-bottom: 10px;">هل تريد إفراغ السلة بالكامل؟</p>
+        <p style="font-size: 16px;">Voulez-vous vider complètement le panier ?</p>
+        <p style="font-size: 14px; color: #e74c3c; margin-top: 10px;">⚠️ لا يمكن التراجع عن هذا الإجراء / Cette action ne peut pas être annulée</p>
+      </div>
+    `,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#e74c3c',
+    cancelButtonColor: '#6c757d',
+    confirmButtonText: 'نعم، إفراغ السلة / Oui, vider',
+    cancelButtonText: 'إلغاء / Annuler',
+    reverseButtons: true
+  })
+
+  if (result.isConfirmed) {
+    clearCart()
+    
+    Swal.fire({
+      title: 'تم إفراغ السلة! / Panier vidé!',
+      html: `
+        <div style="text-align: center;">
+          <p style="font-size: 16px; margin-bottom: 10px;">تم إفراغ السلة بالكامل</p>
+          <p style="font-size: 16px;">Le panier a été complètement vidé</p>
+        </div>
+      `,
+      icon: 'success',
+      timer: 2000,
+      showConfirmButton: false
+    })
+  }
 }
 </script>
