@@ -1,20 +1,26 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 py-12 px-4">
+  <!-- Redesigned checkout with Petit Pan's friendly, colorful style -->
+  <div class="min-h-screen bg-gradient-to-b from-blue-50 via-pink-50 to-orange-50 py-12 px-4">
     <div class="max-w-2xl mx-auto">
       <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-blue-400 to-pink-400 mb-4">
+          <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+        <h1 class="text-4xl font-bold mb-2 text-gray-800">
           Finaliser la commande
         </h1>
-        <p class="text-gray-600">Complétez vos informations de livraison</p>
+        <p class="text-gray-600 text-lg">Complétez vos informations de livraison</p>
       </div>
 
-      <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12">
+      <div class="bg-white rounded-3xl shadow-lg p-8 md:p-12 border-2 border-blue-100">
         <form @submit.prevent="submitOrder" class="space-y-6">
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Nom complet</label>
+            <label class="block text-sm font-bold text-gray-700 mb-2">Nom complet</label>
             <div class="relative">
               <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                 </svg>
               </div>
@@ -22,17 +28,17 @@
                   v-model="form.name"
                   type="text"
                   required
-                  class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 outline-none"
+                  class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-400 focus:ring-4 focus:ring-blue-100 transition-all duration-200 outline-none"
                   placeholder="Votre nom complet"
               >
             </div>
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Téléphone</label>
+            <label class="block text-sm font-bold text-gray-700 mb-2">Téléphone</label>
             <div class="relative">
               <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                 </svg>
               </div>
@@ -40,17 +46,17 @@
                   v-model="form.phone"
                   type="tel"
                   required
-                  class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 outline-none"
+                  class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-400 focus:ring-4 focus:ring-blue-100 transition-all duration-200 outline-none"
                   placeholder="+212 6XX XXX XXX"
               >
             </div>
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Adresse de livraison</label>
+            <label class="block text-sm font-bold text-gray-700 mb-2">Adresse de livraison</label>
             <div class="relative">
               <div class="absolute top-3 left-0 pl-4 pointer-events-none">
-                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                 </svg>
@@ -59,26 +65,26 @@
                   v-model="form.address"
                   required
                   rows="4"
-                  class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 outline-none resize-none"
+                  class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-400 focus:ring-4 focus:ring-blue-100 transition-all duration-200 outline-none resize-none"
                   placeholder="Numéro, rue, ville, code postal..."
               ></textarea>
             </div>
           </div>
 
-          <div class="p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border border-blue-100">
+          <div class="p-6 bg-gradient-to-br from-blue-50 to-pink-50 rounded-2xl border-2 border-blue-100">
             <h3 class="text-lg font-bold text-gray-900 mb-4">Résumé de la commande</h3>
             <div class="flex justify-between items-center mb-2">
               <span class="text-gray-600">Articles ({{ totalItems }})</span>
-              <span class="font-semibold text-gray-900">{{ totalPrice.toFixed(2) }} MAD</span>
+              <span class="font-bold text-gray-900">{{ totalPrice.toFixed(2) }} MAD</span>
             </div>
             <div class="flex justify-between items-center mb-2">
               <span class="text-gray-600">Livraison</span>
-              <span class="font-semibold text-green-600">Gratuite</span>
+              <span class="font-bold text-green-600">Gratuite</span>
             </div>
-            <div class="border-t border-blue-200 mt-4 pt-4">
+            <div class="border-t-2 border-blue-200 mt-4 pt-4">
               <div class="flex justify-between items-center">
                 <span class="text-xl font-bold text-gray-900">Total</span>
-                <span class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <span class="text-2xl font-bold text-blue-600">
                   {{ totalPrice.toFixed(2) }} MAD
                 </span>
               </div>
@@ -88,7 +94,7 @@
           <button
               type="submit"
               :disabled="loading"
-              class="w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
+              class="w-full py-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-full font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
           >
             <svg v-if="loading" class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -102,12 +108,12 @@
   </div>
 </template>
 
-
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCart } from '../composables/useCart.js'
 import { orderService } from '../firebase/orderService.js'
+import Swal from 'sweetalert2'
 
 const router = useRouter()
 const { cartItems, totalItems, totalPrice, clearCart } = useCart()
@@ -171,4 +177,3 @@ const submitOrder = async () => {
   }
 }
 </script>
-
